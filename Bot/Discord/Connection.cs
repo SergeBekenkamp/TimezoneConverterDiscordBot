@@ -43,9 +43,10 @@ namespace Bot.Discord
             await _commandHandler.InitializeAsync().ConfigureAwait(false);
 
             // Wait the thread so the console application doesn't close.
-            await Task.Delay(TimeSpan.FromDays(ConfigData.Data.RestartTime)).ConfigureAwait(false);
-            await _client.StopAsync().ConfigureAwait(false);
-            await Task.Delay(TimeSpan.FromSeconds(5)).ConfigureAwait(false);
+            //            await Task.Delay(TimeSpan.FromDays(ConfigData.Data.RestartTime)).ConfigureAwait(false);
+            //            await _client.StopAsync().ConfigureAwait(false);
+            //            await Task.Delay(TimeSpan.FromSeconds(5)).ConfigureAwait(false);
+            await Task.Delay(-1).ConfigureAwait(false);
         }
     }
 }

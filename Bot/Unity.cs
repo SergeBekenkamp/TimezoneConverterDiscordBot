@@ -1,4 +1,5 @@
-﻿using Bot.Discord;
+﻿using Bot.Data;
+using Bot.Discord;
 using Bot.Discord.Configurations;
 using Bot.Discord.Handlers;
 using Bot.Discord.Handlers.CommandHandlers;
@@ -40,6 +41,7 @@ namespace Bot
             container.RegisterSingleton<IConnection, Connection>();
 
             container.RegisterType<ILogger, Logger.Logger>(new PerThreadLifetimeManager());
+            container.RegisterType<BotContext, BotContext>(new PerThreadLifetimeManager());
 
 
             //DI for discord
@@ -61,7 +63,7 @@ namespace Bot
         /// <returns>The resolved object.</returns>
         public static T Resolve<T>()
         {
-            return (T)Container.Resolve(typeof(T), string.Empty, new CompositeResolverOverride());
+            return (T)Container.Resolve(typeof(T));
         }
     }
 }

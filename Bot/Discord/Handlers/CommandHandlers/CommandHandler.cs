@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Bot.Data;
+using Bot.Discord.TypeConverters;
 using Bot.Interfaces.Discord.EventHandlers.CommandHandlers;
 using Bot.Logger.Interfaces;
 using Discord;
@@ -46,7 +49,11 @@ namespace Bot.Discord.Handlers.CommandHandlers
                 .AddSingleton(_client)
                 .AddSingleton(_commandService)
                 .AddScoped<ILogger, Logger.Logger>()
+                .AddScoped<BotContext>()
                 .BuildServiceProvider();
+
+            // Add BooleanTypeReader to type read for the type "bool"
+            _commandService.AddTypeReader(typeof(string[]), new StringArrayConverter());
 
             // Add all commands and services to the command service.
             await _commandService.AddModulesAsync(Assembly.GetEntryAssembly(), _services).ConfigureAwait(false);
